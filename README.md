@@ -1,0 +1,2 @@
+# Enum
+Simple enum class
