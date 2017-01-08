@@ -1,0 +1,17 @@
+{
+    "name":        "spareparts/enum",
+    "description": "Simple ENUM class.",
+    "keywords":    ["enum"],
+    "license":     "MIT",
+    "require": {
+        "php":  ">=5.5.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "classmap": [
+            "src/Enum.php",
+            "src/Exception/InvalidEnumValueException.php"
+        ]
+    }
+}
