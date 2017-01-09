@@ -7,11 +7,17 @@
         "php":  ">=5.5.0"
     },
     "require-dev": {
+        "phpunit/phpunit": "~4",
+        "mockery/mockery": "^0.9.6"
     },
     "autoload": {
-        "classmap": [
-            "src/Enum.php",
-            "src/Exception/InvalidEnumValueException.php"
-        ]
+        "psr-4": {
+            "SpareParts\\Enum\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SpareParts\\Enum\\Tests\\": "tests"
+        }
     }
 }
