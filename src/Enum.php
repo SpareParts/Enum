@@ -29,6 +29,7 @@ abstract class Enum
      * PROTECTED!! Not callable directly.
      * @see static::instance()
      * @see static::__callStatic()
+     * @internal
      *
      * @param string $value
      */
@@ -43,6 +44,13 @@ abstract class Enum
         $this->value = $value;
     }
 
+    /**
+     *
+     */
+    public function __toString()
+    {
+        return $this->value;
+    }
 
     /**
      * @param string $method
@@ -54,7 +62,6 @@ abstract class Enum
     {
         return static::instance($method);
     }
-
 
     /**
      * @param string $value
