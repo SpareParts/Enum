@@ -1,2 +1,90 @@
 # Enum
-Simple enum class
+PHP Enum done right
+
+Easy way to use enumerated values in PHP.
+
+## Installation
+
+Please, use composer.
+```
+composer require spareparts/overseer
+```
+
+## Basic usage
+
+````
+/**
+ * @method static OPEN
+ * @method static CLOSED
+ */
+class WindowStateEnum extends \SpareParts\Emnum\Enum
+{
+    protected static $values = [
+        'OPEN',
+        'CLOSED',
+    ];
+}
+
+// obtain enum value
+$state = WindowStateEnum::OPEN();
+
+// assign enum value
+$windows->state = WindowStateEnum::CLOSED();
+
+// compare enum values
+if ($window->state === WindowStateEnum::OPEN()) {
+    ....
+}
+
+// use enum to guard method parameters
+function changeWindowState(WindowStateEnum $newState) {
+    ...
+}
+
+````
+### How to prepare Enum
+
+1. extend Enum class
+2. set ``protected static $values``  to array containing list of allowed values
+3. (optional) Annotate enum class with @method annotations to help IDE autocomplete and hint correct enum values, see below
+
+### How to use Enum
+There are two possible ways to use enum values, with first one being preferred.
+1. using static methods with same name as your desired value.  
+
+This works with help from magic __callStatic method, meaning you do not have to add any methods - it works immediately after setting up ``$values``.
+````
+$state = WindowStateEnum::OPEN();
+````
+This method is preferred, as it nicely shows its intended value without having to use weakly guarded strings. 
+
+**Important tip**: To have values correctly autocompleted, use @method annotations, like this:
+````
+/**
+ * @method static OPEN
+ * @method static CLOSED
+ */
+class WindowStateEnum extends \SpareParts\Emnum\Enum {
+    protected static $values = [
+        'OPEN',
+        'CLOSED',
+    ];
+}
+````
+This way, your IDE should know ``WindowStateEnum`` has 2 methods OPEN and CLOSE and correctly hint on their names. In case you are using IDE without support for @method annotations, you can always just add those methods "for real" :)
+
+2. using ``instance()`` method with desired value as instance parameter
+````
+$state = WindowStateEnum::instance('OPEN');
+````
+There is nothing wrong with this approach, but mistakes/typos can be easily made.  
+
+#### Asking enum for unsupported value
+In case you ask for value that is not in the enum values, an InvalidEnumValueException exception is thrown. 
+````
+try {
+    $window->setState(WindowStateEnum::FLYING());
+} catch (InvalidEnumValueException $e) {
+    echo "This is not a correct state for window to be in!";
+}
+````
