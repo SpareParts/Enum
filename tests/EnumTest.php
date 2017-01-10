@@ -69,4 +69,13 @@ class EnumTest extends \PHPUnit_Framework_TestCase
         $open = TestEnum::OPEN();
         $this->assertSame($open, TestEnum::OPEN());
     }
+
+	/**
+	 * @test
+	 */
+    public function stringRepresentation()
+    {
+	    $open = TestEnum::OPEN();
+	    $this->assertEquals('OPEN', (string) TestEnum::OPEN());
+    }
 }
