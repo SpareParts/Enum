@@ -1,6 +1,10 @@
 # Enum
 PHP Enum done right
 
+[![Build Status](https://travis-ci.org/SpareParts/Enum.svg?branch=master)](https://travis-ci.org/SpareParts/Enum)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/SpareParts/Enum/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/SpareParts/Enum/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/SpareParts/Enum/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/SpareParts/Enum/?branch=master)
+
 Easy way to use enumerated values in PHP.
 
 ## Installation
@@ -17,7 +21,7 @@ composer require spareparts/enum
  * @method static OPEN
  * @method static CLOSED
  */
-class WindowStateEnum extends \SpareParts\Emnum\Enum
+class WindowStateEnum extends \SpareParts\Enum\Enum
 {
     protected static $values = [
         'OPEN',
@@ -50,6 +54,7 @@ function changeWindowState(WindowStateEnum $newState) {
 
 ### How to use Enum
 There are two possible ways to use enum values, with first one being preferred.
+
 1. using static methods with same name as your desired value.  
 
 This works with help from magic __callStatic method, meaning you do not have to add any methods - it works immediately after setting up ``$values``.
@@ -64,7 +69,7 @@ This method is preferred, as it nicely shows its intended value without having t
  * @method static OPEN
  * @method static CLOSED
  */
-class WindowStateEnum extends \SpareParts\Emnum\Enum {
+class WindowStateEnum extends \SpareParts\Enum\Enum {
     protected static $values = [
         'OPEN',
         'CLOSED',

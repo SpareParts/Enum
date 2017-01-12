@@ -3,6 +3,7 @@ namespace SpareParts\Enum;
 
 use SpareParts\Enum\Exception\InvalidEnumSetupException;
 use SpareParts\Enum\Exception\InvalidEnumValueException;
+use SpareParts\Enum\Exception\OperationNotAllowedException;
 
 /**
  *
@@ -45,7 +46,7 @@ abstract class Enum
     }
 
     /**
-     *
+     * String representation
      */
     public function __toString()
     {
@@ -75,5 +76,20 @@ abstract class Enum
         }
 
         return static::$instances[get_called_class()][$value];
+    }
+
+    public function __clone()
+    {
+        throw new OperationNotAllowedException('Singleton cannot be cloned.');
+    }
+
+    public function __sleep()
+    {
+        throw new OperationNotAllowedException('Singleton cannot be serialized.');
+    }
+
+    public function __wakeup()
+    {
+        throw new OperationNotAllowedException('Singleton cannot be serialized');
     }
 }

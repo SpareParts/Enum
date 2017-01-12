@@ -2,8 +2,6 @@
 namespace SpareParts\Enum\Tests;
 
 
-use SpareParts\Enum\Exception\InvalidEnumValueException;
-
 class EnumTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -70,12 +68,41 @@ class EnumTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($open, TestEnum::OPEN());
     }
 
-	/**
-	 * @test
-	 */
+    /**
+     * @test
+     */
     public function stringRepresentation()
     {
-	    $open = TestEnum::OPEN();
-	    $this->assertEquals('OPEN', (string) TestEnum::OPEN());
+        $open = TestEnum::OPEN();
+        $this->assertEquals('OPEN', (string) $open);
+    }
+
+    /**
+     * @test
+     * @expectedException \SpareParts\Enum\Exception\OperationNotAllowedException
+     */
+    public function cloningThrowsException()
+    {
+        $open = TestEnum::OPEN();
+        clone $open;
+    }
+
+    /**
+     * @test
+     * @expectedException \SpareParts\Enum\Exception\OperationNotAllowedException
+     */
+    public function serializingThrowsException()
+    {
+        $open = TestEnum::OPEN();
+        serialize($open);
+    }
+
+    /**
+     * @test
+     * @expectedException \SpareParts\Enum\Exception\OperationNotAllowedException
+     */
+    public function unserializingThrowsException()
+    {
+        unserialize('O:30:"SpareParts\Enum\Tests\TestEnum":0:{}');
     }
 }
