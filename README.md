@@ -7,7 +7,7 @@ Easy way to use enumerated values in PHP.
 
 Please, use composer.
 ```
-composer require spareparts/overseer
+composer require spareparts/enum
 ```
 
 ## Basic usage
