@@ -1,13 +1,15 @@
 {
-    "name":        "spareparts/enum",
+    "name": "spareparts/enum",
     "description": "Simple ENUM class.",
-    "keywords":    ["enum"],
-    "license":     "MIT",
+    "keywords": [
+        "enum"
+    ],
+    "license": "MIT",
     "require": {
-        "php":  ">=5.5.0"
+        "php": ">=5.5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4",
+        "phpunit/phpunit": "^6.1.3",
         "mockery/mockery": "^0.9.6"
     },
     "autoload": {
