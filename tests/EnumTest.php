@@ -105,4 +105,12 @@ class EnumTest extends \PHPUnit_Framework_TestCase
     {
         unserialize('O:30:"SpareParts\Enum\Tests\TestEnum":0:{}');
     }
+
+    /**
+     * @test
+     */
+    public function leadingUnderscoreGetStrippedInMagicCall()
+    {
+        $this->assertSame(TestEnum::OPEN(), TestEnum::_OPEN());
+    }
 }
