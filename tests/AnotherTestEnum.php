@@ -13,7 +13,7 @@ use SpareParts\Enum\Enum;
 class AnotherTestEnum extends Enum
 {
     protected static $values = [
-        'PUBLIC',
+        'PUBLICC',
         'PRIVATE',
         'FRIENDS',
     ];
