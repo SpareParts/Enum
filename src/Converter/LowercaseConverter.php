@@ -26,7 +26,7 @@ class LowercaseConverter implements IConverter
      * @param string $enumClass
      * @throws ConverterSetupException
      */
-    public function __construct($enumClass)
+    public function __construct(string $enumClass)
     {
         if (!is_subclass_of($enumClass, Enum::class)) {
             throw new ConverterSetupException("Class ${enumClass} is not a valid Enum. (doesnt extend Enum class)");
@@ -38,7 +38,7 @@ class LowercaseConverter implements IConverter
      * @param mixed $value
      * @return Enum
      */
-    public function toEnum($value)
+    public function toEnum($value): Enum
     {
         return call_user_func_array([$this->enumClass, 'instance'], [strtoupper($value)]);
     }

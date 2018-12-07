@@ -8,11 +8,7 @@ class Set implements ISet
 {
     use SetTrait;
 
-    /**
-     * @param Enum $enum
-     * @return $this
-     */
-    public function add(Enum $enum)
+    public function add(Enum $enum): ISet
     {
         if (!($enum instanceof $this->enumClass)) {
             throw new EnumSetMustContainEnumsException(sprintf("Expected %s, got %s", $this->enumClass, get_class($enum)));
@@ -21,11 +17,7 @@ class Set implements ISet
         return $this;
     }
 
-    /**
-     * @param Enum $enum
-     * @return $this
-     */
-    public function remove(Enum $enum)
+    public function remove(Enum $enum): ISet
     {
         if (!($enum instanceof $this->enumClass)) {
             throw new EnumSetMustContainEnumsException(sprintf("Expected %s, got %s", $this->enumClass, get_class($enum)));

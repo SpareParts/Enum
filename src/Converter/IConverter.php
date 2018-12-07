@@ -12,7 +12,7 @@ interface IConverter
      * @param mixed $value
      * @return Enum
      */
-    public function toEnum($value);
+    public function toEnum($value): Enum;
 
     /**
      * Convert Enum value to whatever this converter converts to.

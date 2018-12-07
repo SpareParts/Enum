@@ -30,7 +30,7 @@ class StringSerializeConverter implements IEnumSetConverter
      * @param string $serialized
      * @return ImmutableSet
      */
-    public function convertToEnumSet($serialized)
+    public function convertToEnumSet($serialized): ISet
     {
         $serialized = (string) $serialized;
         $stringList = unserialize($serialized);
@@ -42,11 +42,7 @@ class StringSerializeConverter implements IEnumSetConverter
         return new ImmutableSet($this->enumClass, $set);
     }
 
-    /**
-     * @param ISet $enumSet
-     * @return string
-     */
-    public function convertFromEnumSet(ISet $enumSet)
+    public function convertFromEnumSet(ISet $enumSet): string
     {
         $stringList = [];
         foreach ($enumSet as $enum) {

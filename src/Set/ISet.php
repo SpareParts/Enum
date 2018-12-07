@@ -6,21 +6,9 @@ use SpareParts\Enum\Enum;
 
 interface ISet extends \Countable, \IteratorAggregate
 {
-    /**
-     * @param Enum $value
-     * @return bool
-     */
-    public function contains(Enum $value);
+    public function contains(Enum $value): bool;
 
-    /**
-     * @param Enum $enum
-     * @return self
-     */
-    public function add(Enum $enum);
+    public function add(Enum $enum): self;
 
-    /**
-     * @param Enum $enum
-     * @return self
-     */
-    public function remove(Enum $enum);
+    public function remove(Enum $enum): self;
 }
