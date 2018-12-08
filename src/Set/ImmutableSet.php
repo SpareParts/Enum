@@ -8,11 +8,7 @@ class ImmutableSet implements ISet
 {
     use SetTrait;
 
-    /**
-     * @param Enum $enum
-     * @return self
-     */
-    public function add(Enum $enum)
+    public function add(Enum $enum): ISet
     {
         if (!($enum instanceof $this->enumClass)) {
             throw new EnumSetMustContainEnumsException(sprintf("Expected %s, got %s", $this->enumClass, get_class($enum)));
@@ -23,11 +19,7 @@ class ImmutableSet implements ISet
         return new ImmutableSet($this->enumClass, $set);
     }
 
-    /**
-     * @param Enum $enum
-     * @return self
-     */
-    public function remove(Enum $enum)
+    public function remove(Enum $enum): ISet
     {
         if (!($enum instanceof $this->enumClass)) {
             throw new EnumSetMustContainEnumsException(sprintf("Expected %s, got %s", $this->enumClass, get_class($enum)));

@@ -9,7 +9,7 @@ interface IEnumSetConverter
      * @param mixed $values
      * @return ISet
      */
-    public function convertToEnumSet($values);
+    public function convertToEnumSet($values): ISet;
 
     /**
      * @param ISet $enumSet

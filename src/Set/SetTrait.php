@@ -21,7 +21,7 @@ trait SetTrait
      * @param string $enumClass
      * @param Enum[] $set
      */
-    public function __construct($enumClass, $set = [])
+    public function __construct(string $enumClass, $set = [])
     {
         // if enum class was sent, we must make sure it is valid
         $this->setEnumClass($enumClass);
@@ -37,27 +37,17 @@ trait SetTrait
         }
     }
 
-    /**
-     * @return \ArrayIterator
-     */
-    public function getIterator()
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator(array_values($this->set));
     }
 
-    /**
-     * @return int
-     */
-    public function count()
+    public function count(): int
     {
         return count($this->set);
     }
 
-    /**
-     * @param Enum $value
-     * @return bool
-     */
-    public function contains(Enum $value)
+    public function contains(Enum $value): bool
     {
         if (in_array($value, $this->set)) {
             return true;
@@ -65,10 +55,7 @@ trait SetTrait
         return false;
     }
 
-    /**
-     * @param string $enumClass
-     */
-    protected function setEnumClass($enumClass)
+    protected function setEnumClass(string $enumClass): void
     {
         if (!is_null($enumClass) && !is_subclass_of($enumClass, Enum::class)) {
             throw new InvalidEnumClassException("Class ${enumClass} does not implement Enum (as it should). Maybe you forgot to specify correct enum class in constructor?");

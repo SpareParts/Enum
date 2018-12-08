@@ -102,7 +102,7 @@ class BitMaskConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \SpareParts\Enum\Exception\EnumSetMustContainEnumsException
+     * @expectedException \TypeError
      */
     public function converterNeedsAnArrayAtSetup()
     {
@@ -124,7 +124,7 @@ class BitMaskConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \SpareParts\Enum\Exception\EnumSetMustContainEnumsException
+     * @expectedException \TypeError
      */
     public function allMapValuesMustBeEnums()
     {
@@ -137,7 +137,7 @@ class BitMaskConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \SpareParts\Enum\Exception\EnumSetMustContainEnumsException
+     * @expectedException \TypeError
      */
     public function firstMapValueMustBeEnum()
     {

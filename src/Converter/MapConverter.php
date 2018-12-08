@@ -31,7 +31,7 @@ class MapConverter implements IConverter
     protected $enumMap = [];
 
     /**
-     * @param array $map
+     * @param array $map { [enumValue: string]: Enum }
      * @throws ConverterSetupException
      */
     public function __construct(array $map)
@@ -51,7 +51,7 @@ class MapConverter implements IConverter
      * @return Enum
      * @throws UnableToConvertException
      */
-    public function toEnum($value)
+    public function toEnum($value): Enum
     {
         if (!is_scalar($value)) {
             throw new UnableToConvertException(sprintf('Unable to convert: Value %s is not a scalar value.', print_r($value, true)));
@@ -69,7 +69,7 @@ class MapConverter implements IConverter
      * @return string
      * @throws UnableToConvertException
      */
-    public function fromEnum(Enum $enum)
+    public function fromEnum(Enum $enum): string
     {
         if (!isset($this->scalarMap[(string) $enum])) {
             throw new UnableToConvertException(

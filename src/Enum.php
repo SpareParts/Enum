@@ -37,7 +37,7 @@ abstract class Enum
     protected static $values = [];
 
     /**
-     * @var $this[]
+     * @var self[]
      */
     protected static $instances = [];
 
@@ -51,10 +51,8 @@ abstract class Enum
      * @see static::instance()
      * @see static::__callStatic()
      * @internal
-     *
-     * @param string $value
      */
-    protected function __construct($value)
+    protected function __construct(string $value)
     {
         if (empty(static::$values)) {
             throw new InvalidEnumSetupException('Incorrect setup! Enum '.get_called_class().' doesn\'t have its static::$values set.');
@@ -68,18 +66,12 @@ abstract class Enum
     /**
      * String representation
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->value;
     }
 
-    /**
-     * @param string $method
-     * @param array $args
-     *
-     * @return \SpareParts\Enum\Enum
-     */
-    public static function __callStatic($method, $args)
+    public static function __callStatic(string $method, array $args): self
     {
         if ($method[0] === '_') {
             $method = substr($method, 1);
@@ -87,12 +79,7 @@ abstract class Enum
         return static::instance($method);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return $this
-     */
-    public static function instance($value)
+    public static function instance(string $value): self
     {
         if (!isset(static::$instances[get_called_class()][$value])) {
             static::$instances[get_called_class()][$value] = new static($value);

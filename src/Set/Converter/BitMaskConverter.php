@@ -21,19 +21,19 @@ class BitMaskConverter implements IEnumSetConverter
     /**
      * @param Enum[] $enumValuesMap
      */
-    public function __construct($enumValuesMap)
+    public function __construct(iterable $enumValuesMap)
     {
-        if (!is_array($enumValuesMap) || !count($enumValuesMap)) {
+        if (!count($enumValuesMap)) {
             throw new EnumSetMustContainEnumsException('You have to provide converter mapping.');
         }
         $this->mapping = $this->prepareInnerMapping($enumValuesMap);
     }
 
     /**
-     * @param int $values
+     * @param int $values A number representing a bit mask
      * @return ISet
      */
-    public function convertToEnumSet($values)
+    public function convertToEnumSet($values) : ISet
     {
         $bitValue = (int) $values;
 
@@ -46,11 +46,7 @@ class BitMaskConverter implements IEnumSetConverter
         return new ImmutableSet($this->enumClass, $set);
     }
 
-    /**
-     * @param ISet $enumSet
-     * @return int
-     */
-    public function convertFromEnumSet(ISet $enumSet)
+    public function convertFromEnumSet(ISet $enumSet): int
     {
         $bitValue = 0;
         /** @var Enum $value */
@@ -60,17 +56,13 @@ class BitMaskConverter implements IEnumSetConverter
         return $bitValue;
     }
 
-    /**
-     * @param $enumValuesMap
-     * @return array
-     */
-    private function prepareInnerMapping($enumValuesMap)
+    private function prepareInnerMapping(iterable $enumValuesMap): array
     {
         // translate enum values to bit values mapping
         $innerMapping = [];
         $shift = 0;
         foreach ($enumValuesMap as $value) {
-            $this->fetchEnumClass($value);
+            $this->updateEnumClass($value);
 
             $innerMapping[(string)$value] = 1 << $shift;
             $shift++;
@@ -78,14 +70,11 @@ class BitMaskConverter implements IEnumSetConverter
         return $innerMapping;
     }
 
-    /**
-     * @param $value
-     */
-    private function fetchEnumClass($value)
+    private function updateEnumClass(Enum $value): void
     {
         // try to guess enum class
         if (is_null($this->enumClass)) {
-            $this->setEnumClass($value);
+            $this->enumClass = get_class($value);
         }
         if (!is_object($value) || !($value instanceof $this->enumClass)) {
             throw new EnumSetMustContainEnumsException(sprintf("Expected `%s`, got `%s`", $this->enumClass, $this->printVar($value)));
@@ -93,21 +82,10 @@ class BitMaskConverter implements IEnumSetConverter
     }
 
     /**
-     * @param mixed $enum
-     */
-    private function setEnumClass($enum)
-    {
-        if (!is_object($enum) || !is_subclass_of($enum, Enum::class)) {
-            throw new EnumSetMustContainEnumsException(sprintf("Class %s does not implement Enum (as it should).", $this->printVar($enum)));
-        }
-        $this->enumClass = get_class($enum);
-    }
-
-    /**
      * @param mixed $value
      * @return string
      */
-    private function printVar($value)
+    private function printVar($value): string
     {
         return is_object($value) ? get_class($value) : var_export($value, true);
     }
