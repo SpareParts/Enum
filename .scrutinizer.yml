@@ -5,3 +5,9 @@ tools:
     php_pdepend: true
     php_analyzer: true
     external_code_coverage: true
+build:
+    nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run

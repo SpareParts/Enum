@@ -8,7 +8,7 @@ interface ISet extends \Countable, \IteratorAggregate
 {
     public function contains(Enum $value): bool;
 
-    public function add(Enum $enum): self;
+    public function add(Enum $enum): ISet;
 
-    public function remove(Enum $enum): self;
+    public function remove(Enum $enum): ISet;
 }
