@@ -52,6 +52,22 @@ class MapConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     */
+    public function fromEnumReturnsVariousTypes()
+    {
+        $converter = new MapConverter([
+            1 => TestEnum::OPEN(),
+            'closeded' => TestEnum::CLOSED(),
+            TestEnum::BROKEN(),
+        ]);
+
+        $this->assertSame(1, $converter->fromEnum(TestEnum::OPEN()));
+        $this->assertSame('closeded', $converter->fromEnum(TestEnum::CLOSED()));
+        $this->assertSame(2, $converter->fromEnum(TestEnum::BROKEN()));
+    }
+
+    /**
+     * @test
      * @expectedException \SpareParts\Enum\Converter\UnableToConvertException
      */
     public function toEnumValueMustBeScalar()
