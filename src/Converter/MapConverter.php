@@ -66,10 +66,10 @@ class MapConverter implements IConverter
 
     /**
      * @param Enum $enum
-     * @return string
+     * @return mixed
      * @throws UnableToConvertException
      */
-    public function fromEnum(Enum $enum): string
+    public function fromEnum(Enum $enum)
     {
         if (!isset($this->scalarMap[(string) $enum])) {
             throw new UnableToConvertException(
