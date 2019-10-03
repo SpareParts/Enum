@@ -16,7 +16,7 @@ class ImmutableSet implements ISet
         $set = $this->set;
         $set[(string) $enum] = $enum;
 
-        return new ImmutableSet($this->enumClass, $set);
+        return new static($this->enumClass, $set);
     }
 
     public function remove(Enum $enum): ISet
@@ -27,6 +27,6 @@ class ImmutableSet implements ISet
         $set = $this->set;
         unset($set[(string) $enum]);
 
-        return new ImmutableSet($this->enumClass, $set);
+        return new static($this->enumClass, $set);
     }
 }
