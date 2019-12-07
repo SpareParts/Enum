@@ -4,9 +4,9 @@ use SpareParts\Enum\Enum;
 
 
 /**
- * @method static SWIM
- * @method static RUN
- * @method static FLY
+ * @method static SWIM()
+ * @method static RUN()
+ * @method static FLY()
  */
 class TestEnum2 extends Enum
 {
