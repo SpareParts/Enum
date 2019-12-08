@@ -27,18 +27,18 @@ namespace SpareParts\Enum;
 use SpareParts\Enum\Exception\InvalidEnumSetupException;
 use SpareParts\Enum\Exception\InvalidEnumValueException;
 use SpareParts\Enum\Exception\OperationNotAllowedException;
+use SpareParts\Enum\Mapping\Annotations;
 
 abstract class Enum
 {
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     protected static $values = [];
 
-    /**
-     * @var self[]
-     */
+    /** @var string[][] */
+    private static $innerValues = [];
+
+    /** @var self[][] */
     protected static $instances = [];
 
     /**
@@ -54,10 +54,23 @@ abstract class Enum
      */
     protected function __construct(string $value)
     {
-        if (empty(static::$values)) {
-            throw new InvalidEnumSetupException('Incorrect setup! Enum '.get_called_class().' doesn\'t have its static::$values set.');
+        if (!isset(self::$innerValues[get_class($this)])) {
+            // first, try to fetch correct values
+            if (empty(static::$values)) {
+                // try to use annotations
+                self::$innerValues[get_class($this)] = Annotations::loadEnumValues(get_class($this));
+            } else {
+                self::$innerValues[get_class($this)] = static::$values;
+            }
+
+            // then check we did it in a constructive way
+            if (empty(self::$innerValues[get_class($this)])) {
+                throw new InvalidEnumSetupException('Incorrect setup! Enum '.get_called_class().' doesn\'t have its static::$values set.');
+            }
         }
-        if (!in_array($value, static::$values)) {
+
+        // does this $value exist in current Enum
+        if (!in_array($value, self::$innerValues[get_class($this)])) {
             throw new InvalidEnumValueException('Enum '.get_called_class().' does not contain value '.$value.'. Possible values are: '.implode(', ', static::$values));
         }
         $this->value = $value;

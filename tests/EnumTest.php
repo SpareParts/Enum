@@ -5,6 +5,16 @@ namespace SpareParts\Enum\Tests;
 class EnumTest extends \PHPUnit_Framework_TestCase
 {
 
+    /**
+     * @test
+     */
+    public function phpdocDefinedValuesWorkCorrectly()
+    {
+        AnnotatedTestEnum::OPEN();
+        AnnotatedTestEnum::BROKEN();
+        AnnotatedTestEnum::CLOSED();
+        AnnotatedTestEnum::instance('FIXED');
+    }
 
     /**
      * @test
