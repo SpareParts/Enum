@@ -9,7 +9,7 @@ Easy way to use enumerated values in PHP.
 
 ## Installation
 
-Please, use composer.
+Best way to install is to use [composer](https://getcomposer.org/download/)
 ```bash
 composer require spareparts/enum
 ```
@@ -18,26 +18,20 @@ composer require spareparts/enum
 
 ````php
 /**
- * @method static OPEN
- * @method static CLOSED
+ * @method static WindowStateEnum OPEN()
+ * @method static WindowStateEnum CLOSED()
  */
 class WindowStateEnum extends \SpareParts\Enum\Enum
 {
-    protected static $values = [
-        'OPEN',
-        'CLOSED',
-    ];
 }
 
 // obtain enum value
 $state = WindowStateEnum::OPEN();
 
-// assign enum value
-$windows->state = WindowStateEnum::CLOSED();
-
-// compare enum values
+// assign and compare enum values
 if ($window->state === WindowStateEnum::OPEN()) {
-    ....
+    // close the doors if opened
+    $window->state = WindowStateEnum::CLOSED();
 }
 
 // use enum to guard method parameters
@@ -49,8 +43,16 @@ function changeWindowState(WindowStateEnum $newState) {
 ### How to prepare Enum
 
 1. extend Enum class
-2. set ``protected static $values``  to array containing list of allowed values
-3. (optional) Annotate enum class with @method annotations to help IDE autocomplete and hint correct enum values, see below
+2. add @method annotations to let both the Enum class and your IDE know which enum values are allowed 
+````php
+/**
+ * @method static WindowStateEnum OPEN()
+ * @method static WindowStateEnum CLOSED()
+ */
+class WindowStateEnum extends \SpareParts\Enum\Enum 
+{
+}
+````
 
 ### How to use Enum
 There are two possible ways to use enum values, with first one being preferred.
@@ -63,33 +65,18 @@ $state = WindowStateEnum::OPEN();
 ````
 This method is preferred, as it nicely shows its intended value without having to use weakly guarded strings. 
 
-**Important tip**: To have values correctly autocompleted, use @method annotations, like this:
-````php
-/**
- * @method static OPEN
- * @method static CLOSED
- */
-class WindowStateEnum extends \SpareParts\Enum\Enum {
-    protected static $values = [
-        'OPEN',
-        'CLOSED',
-    ];
-}
-````
-This way, your IDE should know ``WindowStateEnum`` has 2 methods OPEN and CLOSE and correctly hint on their names. In case you are using IDE without support for @method annotations, you can always just add those methods "for real" :)
-
 2. using ``instance()`` method with desired value as instance parameter
 ````php
 $state = WindowStateEnum::instance('OPEN');
 ````
-There is nothing wrong with this approach, but mistakes/typos can be easily made.  
+There is nothing inherently wrong with this approach, but mistakes/typos can be easily made.  
 
 #### Asking enum for unsupported value
 In case you ask for value that is not in the enum values, an InvalidEnumValueException exception is thrown. 
 ````php
 try {
     $window->setState(WindowStateEnum::FLYING());
-} catch (InvalidEnumValueException $e) {
+} catch (\SpareParts\Enum\Exception\InvalidEnumValueException $e) {
     echo "This is not a correct state for window to be in!";
 }
 ````
