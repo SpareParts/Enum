@@ -11,3 +11,5 @@ RUN \
     apt-get install -y --force-yes vim curl git
 
 COPY . /app
+
+ENTRYPOINT bash
