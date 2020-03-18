@@ -4,9 +4,9 @@ namespace SpareParts\Enum\Tests;
 use SpareParts\Enum\Enum;
 
 /**
- * @method static OPEN()
- * @method static CLOSED()
- * @method static BROKEN()
+ * @method static TestEnum OPEN()
+ * @method static TestEnum CLOSED()
+ * @method static TestEnum BROKEN()
  */
 class TestEnum extends Enum
 {

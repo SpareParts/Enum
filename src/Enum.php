@@ -28,6 +28,7 @@ use SpareParts\Enum\Exception\InvalidEnumSetupException;
 use SpareParts\Enum\Exception\InvalidEnumValueException;
 use SpareParts\Enum\Exception\OperationNotAllowedException;
 use SpareParts\Enum\Mapping\Annotations;
+use SpareParts\Enum\Set\ISet;
 
 abstract class Enum
 {
@@ -99,6 +100,22 @@ abstract class Enum
         }
 
         return static::$instances[get_called_class()][$value];
+    }
+
+    /**
+     *
+     *
+     * @param iterable|self[] $enumList
+     * @return bool
+     */
+    public function isAnyOf(iterable $enumList): bool
+    {
+        foreach ($enumList as $enum) {
+            if ($enum === $this) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function __clone()

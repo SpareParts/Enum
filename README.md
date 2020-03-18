@@ -23,10 +23,6 @@ composer require spareparts/enum
  */
 class WindowStateEnum extends \SpareParts\Enum\Enum
 {
-    protected static $values = [
-        'OPEN',
-        'CLOSED',
-    ];
 }
 
 // obtain enum value
@@ -49,15 +45,14 @@ function changeWindowState(WindowStateEnum $newState) {
 ### How to prepare Enum
 
 1. extend Enum class
-2. set ``protected static $values``  to array containing list of allowed values
-3. (optional) Annotate enum class with @method annotations to help IDE autocomplete and hint correct enum values, see below
+2. Annotate enum class with @method annotations describing Enum values
 
 ### How to use Enum
 There are two possible ways to use enum values, with first one being preferred.
 
 1. using static methods with same name as your desired value.  
 
-This works with help from magic __callStatic method, meaning you do not have to add any methods - it works immediately after setting up ``$values``.
+This works with help from magic __callStatic method, meaning you do not have to add any methods manually.
 ````php
 $state = WindowStateEnum::OPEN();
 ````
@@ -69,11 +64,8 @@ This method is preferred, as it nicely shows its intended value without having t
  * @method static OPEN
  * @method static CLOSED
  */
-class WindowStateEnum extends \SpareParts\Enum\Enum {
-    protected static $values = [
-        'OPEN',
-        'CLOSED',
-    ];
+class WindowStateEnum extends \SpareParts\Enum\Enum 
+{
 }
 ````
 This way, your IDE should know ``WindowStateEnum`` has 2 methods OPEN and CLOSE and correctly hint on their names. In case you are using IDE without support for @method annotations, you can always just add those methods "for real" :)
@@ -92,4 +84,11 @@ try {
 } catch (InvalidEnumValueException $e) {
     echo "This is not a correct state for window to be in!";
 }
+````
+
+#### Testing for multiple values 
+You can check for enum belonging to any of an enum group / set like this:
+
+````php
+if ($state->isAnyOf([Window::OPEN(), Window::CLOSED()]));
 ````
