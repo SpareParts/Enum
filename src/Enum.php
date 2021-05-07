@@ -85,6 +85,7 @@ abstract class Enum
         return $this->value;
     }
 
+    /** @return static */
     public static function __callStatic(string $method, array $args): self
     {
         if ($method[0] === '_') {
@@ -93,6 +94,7 @@ abstract class Enum
         return static::instance($method);
     }
 
+    /** @return static */
     public static function instance(string $value): self
     {
         if (!isset(static::$instances[get_called_class()][$value])) {
